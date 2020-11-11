@@ -5,18 +5,18 @@ import java.util.InputMismatchException;
 public class TemperatureSeriesAnalysis {
     private double[] temperatureArray;
     private int arraySize;
-    private static final double minValue = -273;
-    private static final int initialSize = 10;
+    private final static double MinValue = -273;
+    private final static int InitialSize = 10;
 
     public TemperatureSeriesAnalysis() {
-        temperatureArray = new double[initialSize];
+        temperatureArray = new double[InitialSize];
         arraySize = 0;
     }
 
     public TemperatureSeriesAnalysis(double[] temperatureSeries) {
         // Check the input. All values should be >= -273.
         for (double temperature: temperatureSeries) {
-            if (temperature < minValue) {
+            if (temperature < MinValue) {
                 throw new InputMismatchException();
             }
         }
@@ -42,7 +42,7 @@ public class TemperatureSeriesAnalysis {
         double mean = average();
         double deviationSum = 0;
         for (double temperature: temperatureArray) {
-            deviationSum += Math.pow(temperature - mean, 2);
+            deviationSum += (temperature - mean) * (temperature - mean);
         }
         return Math.sqrt(deviationSum / arraySize);
     }
@@ -152,7 +152,7 @@ public class TemperatureSeriesAnalysis {
         double devTemp = deviation();
         double maxTemp = max();
         double minTemp = min();
-        System.out.println(avgTemp + " " + devTemp + " " + maxTemp + " " + minTemp + " ");
+        System.out.println(avgTemp + " " + devTemp + " " + maxTemp + " " + minTemp);
         return new TempSummaryStatistics(avgTemp, devTemp, maxTemp, minTemp);
     }
 
