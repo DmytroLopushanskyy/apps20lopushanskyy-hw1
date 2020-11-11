@@ -3,10 +3,10 @@ package ua.edu.ucu.tempseries;
 import java.util.InputMismatchException;
 
 public class TemperatureSeriesAnalysis {
-    private double[] temperatureArray;
-    private int arraySize;
     private static final double MIN_VALUE = -273;
     private static final int INITIAL_SIZE = 10;
+    private double[] temperatureArray;
+    private int arraySize;
 
     public TemperatureSeriesAnalysis() {
         temperatureArray = new double[INITIAL_SIZE];
