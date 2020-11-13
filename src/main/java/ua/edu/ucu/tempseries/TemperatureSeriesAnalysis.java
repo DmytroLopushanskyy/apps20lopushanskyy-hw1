@@ -21,7 +21,8 @@ public class TemperatureSeriesAnalysis {
                 throw new InputMismatchException();
             }
         }
-        temperatureArray = Arrays.copyOf(temperatureSeries, temperatureSeries.length);
+        temperatureArray = Arrays.copyOf(temperatureSeries,
+                temperatureSeries.length);
         arraySize = temperatureSeries.length;
     }
 
@@ -111,7 +112,12 @@ public class TemperatureSeriesAnalysis {
     }
 
     public double[] findTemps(double tempValue, boolean greater) {
-        int great = greater?1:-1;
+        int great;
+        if (greater) {
+            great = 1;
+        } else {
+            great = -1;
+        }
         // Determine the amount of numbers
         int counter = 0;
         for (double temperature: temperatureArray) {
