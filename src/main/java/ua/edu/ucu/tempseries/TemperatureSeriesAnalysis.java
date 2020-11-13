@@ -1,5 +1,6 @@
 package ua.edu.ucu.tempseries;
 
+import java.util.Arrays;
 import java.util.InputMismatchException;
 
 public class TemperatureSeriesAnalysis {
@@ -20,7 +21,7 @@ public class TemperatureSeriesAnalysis {
                 throw new InputMismatchException();
             }
         }
-        temperatureArray = temperatureSeries;
+        temperatureArray = Arrays.copyOf(temperatureSeries, temperatureSeries.length);
         arraySize = temperatureSeries.length;
     }
 
@@ -102,47 +103,34 @@ public class TemperatureSeriesAnalysis {
     }
 
     public double[] findTempsLessThen(double tempValue) {
-        // Determine the amount of numbers
-        int counter = 0;
-        for (double temperature: temperatureArray) {
-            if (temperature < tempValue) {
-                counter++;
-            }
-        }
-
-        // Create array with respective size
-        double[] lessArray = new double[counter];
-
-        int i = 0;
-        for (double temperature: temperatureArray) {
-            if (temperature < tempValue) {
-                lessArray[i] = temperature;
-                i++;
-            }
-        }
-        return lessArray;
+        return findTemps(tempValue, false);
     }
 
     public double[] findTempsGreaterThen(double tempValue) {
+        return findTemps(tempValue, true);
+    }
+
+    public double[] findTemps(double tempValue, boolean greater) {
+        int great = greater?1:-1;
         // Determine the amount of numbers
         int counter = 0;
         for (double temperature: temperatureArray) {
-            if (temperature > tempValue) {
+            if (Double.compare(temperature, tempValue) * great > 0) {
                 counter++;
             }
         }
 
         // Create array with respective size
-        double[] greaterArray = new double[counter];
+        double[] newArray = new double[counter];
 
         int i = 0;
         for (double temperature: temperatureArray) {
-            if (temperature > tempValue) {
-                greaterArray[i] = temperature;
+            if (Double.compare(temperature, tempValue) * great > 0) {
+                newArray[i] = temperature;
                 i++;
             }
         }
-        return greaterArray;
+        return newArray;
     }
 
     public TempSummaryStatistics summaryStatistics() {
